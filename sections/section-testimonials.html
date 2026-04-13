@@ -1,0 +1,122 @@
+<!-- =============================================
+     SECTION: Testimonials / Case Studies
+     ============================================= -->
+<style>
+  :root {
+    --blue-accent: #1e6fd9;
+    --orange:      #f97316;
+    --white:       #ffffff;
+    --text-dark:   #0f172a;
+    --text-mid:    #334155;
+    --text-muted:  #64748b;
+    --border:      #e2e8f0;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--white); color: var(--text-dark); line-height: 1.6;
+  }
+
+  .testimonials { background: var(--white); padding: 96px 6%; }
+
+  .center { text-align: center; }
+  .center .section-sub { margin: 0 auto; }
+
+  .section-tag {
+    display: inline-block; font-size: .78rem; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--orange); margin-bottom: .8rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.7rem, 3.5vw, 2.6rem); font-weight: 800;
+    color: var(--text-dark); letter-spacing: -.5px; line-height: 1.2; margin-bottom: 1rem;
+  }
+
+  .section-sub { font-size: 1.02rem; color: var(--text-mid); max-width: 560px; }
+
+  .testi-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    max-width: 1200px; margin: 3rem auto 0;
+  }
+
+  .testi-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 16px; padding: 2rem;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .testi-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,.09); }
+
+  .testi-stars { color: var(--orange); font-size: .9rem; letter-spacing: 2px; margin-bottom: 1rem; }
+
+  .testi-quote {
+    font-size: .9rem; color: var(--text-mid); line-height: 1.7;
+    margin-bottom: 1.4rem; font-style: italic;
+  }
+
+  .testi-author { display: flex; align-items: center; gap: .8rem; }
+
+  .testi-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue-accent), var(--orange));
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: .9rem; color: var(--white); flex-shrink: 0;
+  }
+
+  .testi-name { font-size: .9rem; font-weight: 700; color: var(--text-dark); }
+  .testi-role { font-size: .78rem; color: var(--text-muted); }
+
+  @media (max-width: 900px) {
+    .testi-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .testi-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<section class="testimonials" id="testimonials">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="center">
+      <span class="section-tag">Case Studies</span>
+      <h2 class="section-title">Trusted by Industry Leaders</h2>
+      <p class="section-sub">Success stories from organizations that have transformed their API management with QNX AI solutions and IBM Instana.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testi-quote">"QNX AI reduced our API integration time by over 60%. The IBM Instana integration gave us visibility we never had before — we can now catch issues before our customers even notice them."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">MR</div>
+          <div>
+            <div class="testi-name">Michael Rivera</div>
+            <div class="testi-role">CTO, NexaFintech</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testi-quote">"The self&#8209;healing orchestration alone saved us hundreds of engineering hours. Downtime dropped 40% within the first quarter of deployment. QNX is genuinely transformative."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">SL</div>
+          <div>
+            <div class="testi-name">Sarah Lin</div>
+            <div class="testi-role">VP Engineering, CloudBridge Corp</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testi-quote">"Moving from manual API management to QNX AI was night and day. The real&#8209;time Instana dashboards and proactive alerts have completely changed how our team operates."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">JK</div>
+          <div>
+            <div class="testi-name">James Kowalski</div>
+            <div class="testi-role">Director of Platform, RetailEdge</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

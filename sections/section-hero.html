@@ -1,0 +1,166 @@
+<!-- =============================================
+     SECTION: Hero
+     ============================================= -->
+<style>
+  :root {
+    --blue-accent: #1e6fd9;
+    --blue-dark:   #0d2145;
+    --orange:      #f97316;
+    --orange-light:#fb923c;
+    --orange-pale: #fff7ed;
+    --blue-light:  #3b82f6;
+    --blue-pale:   #eff6ff;
+    --white:       #ffffff;
+    --text-dark:   #0f172a;
+    --text-mid:    #334155;
+    --text-muted:  #64748b;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--white);
+    color: var(--text-dark);
+    line-height: 1.6;
+  }
+
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 120px 6% 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 55% at 50% 0%, rgba(30,111,217,.1) 0%, transparent 70%),
+      radial-gradient(ellipse 45% 40% at 85% 85%, rgba(249,115,22,.08) 0%, transparent 65%),
+      linear-gradient(160deg, #f0f7ff 0%, #e8f2ff 60%, #faf5ff 100%);
+  }
+
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(30,111,217,.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(30,111,217,.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 80%);
+  }
+
+  .hero-content { position: relative; max-width: 860px; }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: var(--orange-pale); border: 1px solid rgba(249,115,22,.35);
+    color: var(--orange); font-size: .8rem; font-weight: 600;
+    letter-spacing: .07em; text-transform: uppercase;
+    padding: .35rem 1rem; border-radius: 100px; margin-bottom: 1.6rem;
+  }
+
+  .badge-dot {
+    width: 7px; height: 7px; background: var(--orange); border-radius: 50%;
+    animation: pulse 1.8s infinite;
+  }
+
+  @keyframes pulse {
+    0%,100% { opacity:1; transform:scale(1); }
+    50%      { opacity:.5; transform:scale(1.4); }
+  }
+
+  h1 {
+    font-size: clamp(2.2rem, 5vw, 3.7rem); font-weight: 900;
+    line-height: 1.12; letter-spacing: -1px;
+    color: var(--text-dark); margin-bottom: 1.4rem;
+  }
+
+  h1 .highlight {
+    background: linear-gradient(90deg, var(--blue-accent), var(--orange));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 1.1rem; color: var(--text-mid);
+    max-width: 640px; margin: 0 auto 2.6rem;
+  }
+
+  .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--orange), #c45a0a);
+    color: var(--white); padding: .82rem 2rem; border-radius: 8px;
+    font-size: 1rem; font-weight: 700; text-decoration: none; border: none; cursor: pointer;
+    box-shadow: 0 4px 18px rgba(249,115,22,.35);
+    transition: transform .18s, box-shadow .18s;
+    display: inline-flex; align-items: center; gap: .5rem;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(249,115,22,.45); }
+
+  .btn-secondary {
+    background: var(--white); color: var(--blue-accent);
+    padding: .82rem 2rem; border-radius: 8px; font-size: 1rem; font-weight: 600;
+    text-decoration: none; border: 1.5px solid var(--blue-accent); cursor: pointer;
+    transition: border-color .18s, background .18s;
+    display: inline-flex; align-items: center; gap: .5rem;
+  }
+  .btn-secondary:hover { background: var(--blue-pale); border-color: var(--blue-light); }
+
+  .hero-stats {
+    display: flex; justify-content: center; gap: 3rem; margin-top: 4rem; flex-wrap: wrap;
+  }
+  .stat { text-align: center; }
+  .stat-num { font-size: 2.4rem; font-weight: 900; color: var(--blue-dark); line-height: 1; }
+  .stat-num span { color: var(--orange); }
+  .stat-label {
+    font-size: .8rem; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: .06em; margin-top: .3rem;
+  }
+
+  @media (max-width: 600px) {
+    .hero-stats { gap: 1.5rem; }
+  }
+</style>
+
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      Powered by IBM Instana
+    </div>
+    <h1>
+      QNX AI&#8209;Infused Automation:<br>
+      <span class="highlight">Revolutionizing API Management</span>
+    </h1>
+    <p class="hero-sub">
+      Discover how QNX AI&#8209;Powered Automation enhances your API management,
+      optimizing workflows and accelerating integration cycles with IBM Instana observability.
+    </p>
+    <div class="hero-actions">
+      <a href="#register" class="btn-primary">&#9654;&#xFE0E; Register Now &mdash; Free</a>
+      <a href="#overview" class="btn-secondary">Learn More &#8250;</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">60<span>%</span></div>
+        <div class="stat-label">Faster Integration</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">40<span>%</span></div>
+        <div class="stat-label">Reduced Downtime</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">24<span>/7</span></div>
+        <div class="stat-label">AI Monitoring</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">500<span>+</span></div>
+        <div class="stat-label">Enterprises Served</div>
+      </div>
+    </div>
+  </div>
+</section>

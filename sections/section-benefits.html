@@ -1,0 +1,117 @@
+<!-- =============================================
+     SECTION: Key Benefits
+     ============================================= -->
+<style>
+  :root {
+    --blue-accent: #1e6fd9;
+    --orange:      #f97316;
+    --white:       #ffffff;
+    --text-dark:   #0f172a;
+    --text-muted:  #64748b;
+    --border:      #e2e8f0;
+    --blue-pale:   #eff6ff;
+    --orange-pale: #fff7ed;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--white); color: var(--text-dark); line-height: 1.6;
+  }
+
+  .benefits { background: var(--white); padding: 96px 6%; }
+
+  .center { text-align: center; }
+  .center .section-sub { margin: 0 auto; }
+
+  .section-tag {
+    display: inline-block; font-size: .78rem; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--orange); margin-bottom: .8rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.7rem, 3.5vw, 2.6rem); font-weight: 800;
+    color: var(--text-dark); letter-spacing: -.5px; line-height: 1.2; margin-bottom: 1rem;
+  }
+
+  .section-sub { font-size: 1.02rem; color: #334155; max-width: 560px; }
+
+  .benefits-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    max-width: 1200px; margin: 3rem auto 0;
+  }
+
+  .benefit-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 16px; padding: 2.2rem 2rem;
+    transition: transform .2s, box-shadow .2s, border-color .2s;
+    position: relative; overflow: hidden;
+  }
+  .benefit-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--blue-accent), var(--orange));
+    opacity: 0; transition: opacity .2s;
+  }
+  .benefit-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 36px rgba(0,0,0,.1);
+    border-color: rgba(30,111,217,.25);
+  }
+  .benefit-card:hover::before { opacity: 1; }
+
+  .benefit-icon {
+    width: 52px; height: 52px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; margin-bottom: 1.2rem;
+  }
+  .icon-blue   { background: var(--blue-pale); }
+  .icon-orange { background: var(--orange-pale); }
+  .icon-teal   { background: #f0fdf9; }
+
+  .benefit-metric { font-size: 2.8rem; font-weight: 900; line-height: 1; margin-bottom: .5rem; }
+  .m-blue   { color: var(--blue-accent); }
+  .m-orange { color: var(--orange); }
+  .m-teal   { color: #0d9488; }
+
+  .benefit-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--text-dark); margin-bottom: .6rem; }
+  .benefit-card p  { font-size: .88rem; color: var(--text-muted); line-height: 1.65; }
+
+  @media (max-width: 900px) {
+    .benefits-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .benefits-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<section class="benefits" id="benefits">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="center">
+      <span class="section-tag">Key Benefits</span>
+      <h2 class="section-title">Why QNX Transforms Your Operations</h2>
+      <p class="section-sub">Measurable outcomes backed by AI automation and advanced observability.</p>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon icon-blue">&#9889;</div>
+        <div class="benefit-metric m-blue">60%</div>
+        <h3>Faster Integration Cycles</h3>
+        <p>Transition to automated processes to experience quicker deployment cycles, greatly enhancing operational efficiency and time&#8209;to&#8209;market.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon icon-orange">&#128737;</div>
+        <div class="benefit-metric m-orange">40%</div>
+        <h3>Reduced Downtime</h3>
+        <p>Minimize API&#8209;related issues with self&#8209;healing orchestration mechanisms that automatically resolve problems before they impact users.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon icon-teal">&#128269;</div>
+        <div class="benefit-metric m-teal">Real&#8209;Time</div>
+        <h3>Enhanced Monitoring with IBM Instana</h3>
+        <p>Utilize advanced observability features from IBM Instana to gain real&#8209;time insights into API performance and health, enabling proactive management.</p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QNX AI-Infused Automation | API Management</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue-accent: #1e6fd9;
+      --blue-dark:   #0d2145;
+      --blue-mid:    #1a3a6e;
+      --blue-light:  #3b82f6;
+      --blue-pale:   #eff6ff;
+      --blue-soft:   #dbeafe;
+      --orange:      #f97316;
+      --orange-light:#fb923c;
+      --orange-pale: #fff7ed;
+      --white:       #ffffff;
+      --text-dark:   #0f172a;
+      --text-mid:    #334155;
+      --text-muted:  #64748b;
+      --border:      #e2e8f0;
+      --card-bg:     #ffffff;
+      --section-alt: #f8fafc;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--white);
+      color: var(--text-dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 6%; height: 68px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 8px rgba(0,0,0,.06);
+    }
+    .nav-logo { font-size: 1.5rem; font-weight: 800; color: var(--blue-dark); letter-spacing: -0.5px; }
+    .nav-logo span { color: var(--orange); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--text-mid); text-decoration: none; font-size: .9rem; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--orange); }
+    .nav-cta {
+      background: var(--orange) !important; color: var(--white) !important;
+      padding: .4rem 1.1rem; border-radius: 6px; font-weight: 600 !important;
+    }
+    .nav-cta:hover { background: var(--orange-light) !important; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 120px 6% 80px; position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 55% at 50% 0%, rgba(30,111,217,.1) 0%, transparent 70%),
+        radial-gradient(ellipse 45% 40% at 85% 85%, rgba(249,115,22,.08) 0%, transparent 65%),
+        linear-gradient(160deg, #f0f7ff 0%, #e8f2ff 60%, #faf5ff 100%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(30,111,217,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(30,111,217,.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 80%);
+    }
+    .hero-content { position: relative; max-width: 860px; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--orange-pale); border: 1px solid rgba(249,115,22,.35);
+      color: var(--orange); font-size: .8rem; font-weight: 600;
+      letter-spacing: .07em; text-transform: uppercase;
+      padding: .35rem 1rem; border-radius: 100px; margin-bottom: 1.6rem;
+    }
+    .badge-dot {
+      width: 7px; height: 7px; background: var(--orange); border-radius: 50%;
+      animation: pulse 1.8s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50%      { opacity:.5; transform:scale(1.4); }
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 3.7rem); font-weight: 900;
+      line-height: 1.12; letter-spacing: -1px; color: var(--text-dark); margin-bottom: 1.4rem;
+    }
+    h1 .highlight {
+      background: linear-gradient(90deg, var(--blue-accent), var(--orange));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-sub { font-size: 1.1rem; color: var(--text-mid); max-width: 640px; margin: 0 auto 2.6rem; }
+
+    .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--orange), #c45a0a);
+      color: var(--white); padding: .82rem 2rem; border-radius: 8px;
+      font-size: 1rem; font-weight: 700; text-decoration: none; border: none; cursor: pointer;
+      box-shadow: 0 4px 18px rgba(249,115,22,.35);
+      transition: transform .18s, box-shadow .18s;
+      display: inline-flex; align-items: center; gap: .5rem;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(249,115,22,.45); }
+
+    .btn-secondary {
+      background: var(--white); color: var(--blue-accent);
+      padding: .82rem 2rem; border-radius: 8px; font-size: 1rem; font-weight: 600;
+      text-decoration: none; border: 1.5px solid var(--blue-accent); cursor: pointer;
+      transition: border-color .18s, background .18s, color .18s;
+      display: inline-flex; align-items: center; gap: .5rem;
+    }
+    .btn-secondary:hover { background: var(--blue-pale); border-color: var(--blue-light); }
+
+    .hero-stats {
+      display: flex; justify-content: center; gap: 3rem; margin-top: 4rem; flex-wrap: wrap;
+    }
+    .stat { text-align: center; }
+    .stat-num { font-size: 2.4rem; font-weight: 900; color: var(--blue-dark); line-height: 1; }
+    .stat-num span { color: var(--orange); }
+    .stat-label { font-size: .8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: .06em; margin-top: .3rem; }
+
+    /* SHARED */
+    section { padding: 96px 6%; }
+    .section-tag {
+      display: inline-block; font-size: .78rem; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase; color: var(--orange); margin-bottom: .8rem;
+    }
+    .section-title {
+      font-size: clamp(1.7rem, 3.5vw, 2.6rem); font-weight: 800;
+      color: var(--text-dark); letter-spacing: -.5px; line-height: 1.2; margin-bottom: 1rem;
+    }
+    .section-sub { font-size: 1.02rem; color: var(--text-mid); max-width: 560px; }
+    .center { text-align: center; }
+    .center .section-sub { margin: 0 auto; }
+
+    /* OVERVIEW */
+    .overview { background: var(--section-alt); }
+    .overview-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+      align-items: center; max-width: 1200px; margin: 0 auto;
+    }
+    .feature-list { display: flex; flex-direction: column; gap: 1.4rem; margin-top: 2rem; }
+    .feature-item { display: flex; gap: 1rem; align-items: flex-start; }
+    .feature-icon {
+      width: 40px; height: 40px; min-width: 40px; border-radius: 8px;
+      background: var(--blue-pale); border: 1px solid var(--blue-soft);
+      display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+    }
+    .feature-text h4 { font-size: 1rem; font-weight: 700; color: var(--text-dark); margin-bottom: .2rem; }
+    .feature-text p { font-size: .88rem; color: var(--text-muted); }
+
+    /* API Diagram visual */
+    .api-visual {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 20px; padding: 2rem; position: relative; overflow: hidden; min-height: 340px;
+      display: flex; flex-direction: column; gap: 1rem; justify-content: center;
+      box-shadow: 0 4px 24px rgba(0,0,0,.06);
+    }
+    .api-visual::before {
+      content: ''; position: absolute;
+      inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(30,111,217,.04), transparent);
+    }
+    .api-row { display: flex; gap: .8rem; justify-content: center; position: relative; z-index: 1; }
+    .api-chip {
+      background: var(--blue-pale); border: 1px solid var(--blue-soft);
+      color: var(--blue-accent); border-radius: 8px; padding: .55rem 1.1rem;
+      font-size: .82rem; font-weight: 600; white-space: nowrap;
+    }
+    .api-chip.core {
+      background: linear-gradient(135deg, var(--orange), #c45a0a);
+      border-color: rgba(249,115,22,.4); color: var(--white);
+      padding: .75rem 1.6rem; font-size: .95rem;
+      box-shadow: 0 4px 18px rgba(249,115,22,.3);
+    }
+    .api-chip.instana {
+      background: #f0fdf9; border-color: #99f6e4; color: #0d9488;
+    }
+    .api-arrows {
+      display: flex; justify-content: center; gap: 2rem; color: var(--text-muted);
+      font-size: .75rem; position: relative; z-index: 1;
+    }
+    .arrow-line {
+      display: flex; flex-direction: column; align-items: center; gap: 2px;
+    }
+    .arrow-line span { color: var(--text-muted); font-size: .7rem; }
+
+    /* BENEFITS */
+    .benefits { background: var(--white); }
+    .benefits-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem;
+      max-width: 1200px; margin: 3rem auto 0;
+    }
+    .benefit-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2.2rem 2rem;
+      transition: transform .2s, box-shadow .2s, border-color .2s;
+      position: relative; overflow: hidden;
+    }
+    .benefit-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--blue-accent), var(--orange));
+      opacity: 0; transition: opacity .2s;
+    }
+    .benefit-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,.1); border-color: rgba(30,111,217,.25); }
+    .benefit-card:hover::before { opacity: 1; }
+    .benefit-icon {
+      width: 52px; height: 52px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin-bottom: 1.2rem;
+    }
+    .icon-blue   { background: var(--blue-pale); }
+    .icon-orange { background: var(--orange-pale); }
+    .icon-teal   { background: #f0fdf9; }
+    .benefit-metric { font-size: 2.8rem; font-weight: 900; line-height: 1; margin-bottom: .5rem; }
+    .m-blue   { color: var(--blue-accent); }
+    .m-orange { color: var(--orange); }
+    .m-teal   { color: #0d9488; }
+    .benefit-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--text-dark); margin-bottom: .6rem; }
+    .benefit-card p  { font-size: .88rem; color: var(--text-muted); line-height: 1.65; }
+
+    /* WHY */
+    .why { background: var(--section-alt); }
+    .why-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+      align-items: center; max-width: 1200px; margin: 0 auto;
+    }
+
+    /* Monitoring panel */
+    .monitor-panel {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 20px; padding: 2rem; overflow: hidden; position: relative;
+      box-shadow: 0 4px 24px rgba(0,0,0,.07);
+    }
+    .monitor-panel::after {
+      content: ''; position: absolute; bottom: -40px; right: -40px;
+      width: 180px; height: 180px;
+      background: radial-gradient(circle, rgba(249,115,22,.08), transparent 70%);
+      border-radius: 50%;
+    }
+    .mp-header {
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.4rem;
+    }
+    .mp-title { font-size: .9rem; font-weight: 700; color: var(--text-dark); }
+    .mp-live {
+      font-size: .72rem; font-weight: 600; color: #16a34a;
+      background: #f0fdf4; border: 1px solid #bbf7d0;
+      padding: .2rem .7rem; border-radius: 100px;
+    }
+    .mp-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.4rem; }
+    .mp-metric {
+      background: var(--section-alt); border: 1px solid var(--border);
+      border-radius: 10px; padding: .9rem 1rem;
+    }
+    .mp-metric-label { font-size: .72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: .4rem; }
+    .mp-metric-value { font-size: 1.4rem; font-weight: 800; color: var(--text-dark); }
+    .up   { color: #16a34a; font-size: .7rem; margin-left: 4px; }
+    .warn { color: var(--orange); font-size: .7rem; margin-left: 4px; }
+    .mp-bar-section-label { font-size: .78rem; color: var(--text-muted); margin-bottom: .8rem; }
+    .mp-bars { display: flex; flex-direction: column; gap: .6rem; }
+    .bar-row { display: flex; align-items: center; gap: .8rem; }
+    .bar-label { font-size: .75rem; color: var(--text-muted); width: 80px; flex-shrink: 0; }
+    .bar-track { flex: 1; height: 6px; background: var(--border); border-radius: 100px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--blue-accent), var(--blue-light)); }
+    .bar-fill.orange { background: linear-gradient(90deg, var(--orange), var(--orange-light)); }
+    .bar-pct { font-size: .75rem; color: var(--text-mid); width: 32px; text-align: right; }
+
+    /* TESTIMONIALS */
+    .testimonials { background: var(--white); }
+    .testi-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem;
+      max-width: 1200px; margin: 3rem auto 0;
+    }
+    .testi-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2rem; transition: transform .2s, box-shadow .2s;
+    }
+    .testi-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,.09); }
+    .testi-stars { color: var(--orange); font-size: .9rem; letter-spacing: 2px; margin-bottom: 1rem; }
+    .testi-quote { font-size: .9rem; color: var(--text-mid); line-height: 1.7; margin-bottom: 1.4rem; font-style: italic; }
+    .testi-author { display: flex; align-items: center; gap: .8rem; }
+    .testi-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue-accent), var(--orange));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: .9rem; color: var(--white); flex-shrink: 0;
+    }
+    .testi-name { font-size: .9rem; font-weight: 700; color: var(--text-dark); }
+    .testi-role { font-size: .78rem; color: var(--text-muted); }
+
+    /* REGISTRATION */
+    .register {
+      background: linear-gradient(160deg, var(--blue-pale) 0%, #e0eeff 50%, #fdf4ee 100%);
+      position: relative; overflow: hidden;
+    }
+    .register::before {
+      content: ''; position: absolute; top: -100px; right: -100px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(249,115,22,.07), transparent 70%);
+      border-radius: 50%;
+    }
+    .register::after {
+      content: ''; position: absolute; bottom: -80px; left: -80px;
+      width: 350px; height: 350px;
+      background: radial-gradient(circle, rgba(30,111,217,.07), transparent 70%);
+      border-radius: 50%;
+    }
+    .register-inner { max-width: 760px; margin: 0 auto; position: relative; z-index: 1; }
+
+    .form-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 24px; padding: 3rem 3.5rem; margin-top: 2.5rem;
+      box-shadow: 0 8px 40px rgba(0,0,0,.08);
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .form-group { display: flex; flex-direction: column; gap: .4rem; margin-bottom: 1.2rem; }
+    .form-group label { font-size: .82rem; font-weight: 600; color: var(--text-mid); letter-spacing: .03em; }
+    .form-group input,
+    .form-group select {
+      background: var(--section-alt); border: 1px solid var(--border);
+      border-radius: 8px; padding: .72rem 1rem; color: var(--text-dark);
+      font-size: .92rem; font-family: inherit; outline: none;
+      transition: border-color .2s, background .2s;
+    }
+    .form-group input::placeholder { color: var(--text-muted); }
+    .form-group select option { background: var(--white); color: var(--text-dark); }
+    .form-group input:focus,
+    .form-group select:focus { border-color: var(--blue-accent); background: var(--blue-pale); }
+    .form-divider { height: 1px; background: var(--border); margin: 1.4rem 0; }
+    .form-check { display: flex; align-items: flex-start; gap: .7rem; margin-bottom: 1.4rem; }
+    .form-check input[type="checkbox"] { width: 16px; height: 16px; min-width: 16px; margin-top: 2px; accent-color: var(--orange); }
+    .form-check label { font-size: .82rem; color: var(--text-muted); }
+    .form-check a { color: var(--blue-accent); text-decoration: none; }
+    .form-check a:hover { color: var(--orange); }
+    .form-submit {
+      width: 100%; background: linear-gradient(135deg, var(--orange), #c45a0a);
+      color: var(--white); border: none; border-radius: 10px; padding: 1rem;
+      font-size: 1rem; font-weight: 700; cursor: pointer; letter-spacing: .02em;
+      box-shadow: 0 4px 18px rgba(249,115,22,.35);
+      transition: transform .18s, box-shadow .18s;
+    }
+    .form-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(249,115,22,.45); }
+    .form-note { text-align: center; font-size: .78rem; color: var(--text-muted); margin-top: 1rem; }
+
+    /* CTA BANNER */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-mid) 50%, #1a3060 100%);
+      padding: 72px 6%; text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-banner::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(249,115,22,.07), transparent);
+    }
+    .cta-banner h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; color: var(--white); margin-bottom: .8rem; }
+    .cta-banner p { color: rgba(255,255,255,.8); max-width: 520px; margin: 0 auto 2rem; }
+    .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-download {
+      background: linear-gradient(135deg, var(--orange), #c45a0a);
+      color: var(--white); padding: .82rem 1.8rem; border-radius: 8px;
+      font-size: .95rem; font-weight: 700; text-decoration: none;
+      box-shadow: 0 4px 18px rgba(249,115,22,.4);
+      transition: transform .18s, box-shadow .18s;
+      display: inline-flex; align-items: center; gap: .5rem;
+    }
+    .btn-download:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(249,115,22,.5); }
+    .btn-email {
+      background: transparent; color: var(--white); padding: .82rem 1.8rem;
+      border-radius: 8px; font-size: .95rem; font-weight: 600; text-decoration: none;
+      border: 1.5px solid rgba(255,255,255,.4);
+      transition: border-color .18s, background .18s;
+      display: inline-flex; align-items: center; gap: .5rem;
+    }
+    .btn-email:hover { border-color: rgba(255,255,255,.8); background: rgba(255,255,255,.1); }
+
+    /* FOOTER */
+    footer {
+      background: var(--section-alt); padding: 2.5rem 6%; text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .footer-logo { font-size: 1.3rem; font-weight: 800; color: var(--blue-dark); margin-bottom: .7rem; }
+    .footer-logo span { color: var(--orange); }
+    footer p { font-size: .82rem; color: var(--text-muted); }
+    footer .footer-links { display: flex; gap: 1.8rem; justify-content: center; margin: .8rem 0; list-style: none; }
+    footer .footer-links a { color: var(--text-muted); text-decoration: none; font-size: .82rem; }
+    footer .footer-links a:hover { color: var(--orange); }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .overview-inner, .why-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .benefits-grid, .testi-grid { grid-template-columns: 1fr 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-card { padding: 2rem; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .benefits-grid, .testi-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 1.5rem; }
+      .form-card { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Q<span>N</span>X</div>
+  <ul class="nav-links">
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#benefits">Benefits</a></li>
+    <li><a href="#why">Why QNX</a></li>
+    <li><a href="#testimonials">Case Studies</a></li>
+    <li><a href="#register" class="nav-cta">Register Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      Powered by IBM Instana
+    </div>
+    <h1>
+      QNX AI&#8209;Infused Automation:<br>
+      <span class="highlight">Revolutionizing API Management</span>
+    </h1>
+    <p class="hero-sub">
+      Discover how QNX AI&#8209;Powered Automation enhances your API management,
+      optimizing workflows and accelerating integration cycles with IBM Instana observability.
+    </p>
+    <div class="hero-actions">
+      <a href="#register" class="btn-primary">&#9654;&#xFE0E; Register Now &mdash; Free</a>
+      <a href="#overview" class="btn-secondary">Learn More &#8250;</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">60<span>%</span></div>
+        <div class="stat-label">Faster Integration</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">40<span>%</span></div>
+        <div class="stat-label">Reduced Downtime</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">24<span>/7</span></div>
+        <div class="stat-label">AI Monitoring</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">500<span>+</span></div>
+        <div class="stat-label">Enterprises Served</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OVERVIEW -->
+<section class="overview" id="overview">
+  <div class="overview-inner">
+    <div>
+      <span class="section-tag">Overview</span>
+      <h2 class="section-title">AI&#8209;Powered API Management at Scale</h2>
+      <p class="section-sub">
+        QNX AI&#8209;Powered Automation enhances your API management by optimizing workflows
+        and accelerating integration cycles. By leveraging IBM Instana, gain deeper
+        visibility and control over your APIs, ensuring performance and reliability at scale.
+      </p>
+      <div class="feature-list">
+        <div class="feature-item">
+          <div class="feature-icon">&#127760;</div>
+          <div class="feature-text">
+            <h4>Global API Orchestration</h4>
+            <p>Manage and monitor thousands of API endpoints across distributed environments in real time.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">&#129302;</div>
+          <div class="feature-text">
+            <h4>Self&#8209;Healing Automation</h4>
+            <p>AI&#8209;driven mechanisms detect and resolve API failures before they impact end users.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">&#128200;</div>
+          <div class="feature-text">
+            <h4>Instana Observability</h4>
+            <p>Real&#8209;time insights into API health, latency, and throughput with IBM Instana integration.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="api-visual">
+      <div class="api-row">
+        <div class="api-chip">REST APIs</div>
+        <div class="api-chip">GraphQL</div>
+        <div class="api-chip">gRPC</div>
+      </div>
+      <div class="api-arrows">
+        <span style="color:rgba(74,158,255,.5);font-size:1.4rem;">&#8595; &#8595; &#8595;</span>
+      </div>
+      <div class="api-row">
+        <div class="api-chip core">QNX AI Core</div>
+      </div>
+      <div class="api-arrows">
+        <span style="color:rgba(74,158,255,.5);font-size:1.4rem;">&#8595; &#8595;</span>
+      </div>
+      <div class="api-row">
+        <div class="api-chip instana">IBM Instana</div>
+        <div class="api-chip">Analytics</div>
+        <div class="api-chip">Microservices</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits" id="benefits">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="center">
+      <span class="section-tag">Key Benefits</span>
+      <h2 class="section-title">Why QNX Transforms Your Operations</h2>
+      <p class="section-sub">Measurable outcomes backed by AI automation and advanced observability.</p>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon icon-blue">&#9889;</div>
+        <div class="benefit-metric m-blue">60%</div>
+        <h3>Faster Integration Cycles</h3>
+        <p>Transition to automated processes to experience quicker deployment cycles, greatly enhancing operational efficiency and time&#8209;to&#8209;market.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon icon-orange">&#128737;</div>
+        <div class="benefit-metric m-orange">40%</div>
+        <h3>Reduced Downtime</h3>
+        <p>Minimize API&#8209;related issues with self&#8209;healing orchestration mechanisms that automatically resolve problems before they impact users.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon icon-teal">&#128269;</div>
+        <div class="benefit-metric m-teal">Real&#8209;Time</div>
+        <h3>Enhanced Monitoring with IBM Instana</h3>
+        <p>Utilize advanced observability features from IBM Instana to gain real&#8209;time insights into API performance and health, enabling proactive management.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY QNX -->
+<section class="why" id="why">
+  <div class="why-inner">
+    <div>
+      <span class="section-tag">Why Choose QNX</span>
+      <h2 class="section-title">Move Beyond Manual Processes</h2>
+      <p class="section-sub">
+        With our AI&#8209;driven solutions and IBM Instana integration, your business can
+        embrace a more agile, efficient API integration strategy with significant improvements
+        in both speed and reliability.
+      </p>
+      <div class="feature-list">
+        <div class="feature-item">
+          <div class="feature-icon">&#127775;</div>
+          <div class="feature-text">
+            <h4>AI&#8209;Driven Intelligence</h4>
+            <p>Machine learning models continuously optimize API routing and load balancing.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">&#128274;</div>
+          <div class="feature-text">
+            <h4>Enterprise&#8209;Grade Security</h4>
+            <p>Zero&#8209;trust architecture with automated threat detection and mitigation.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">&#128101;</div>
+          <div class="feature-text">
+            <h4>Expert Support</h4>
+            <p>Dedicated AI specialists and 24/7 support to guide your transformation journey.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">&#128300;</div>
+          <div class="feature-text">
+            <h4>Deep IBM Instana Integration</h4>
+            <p>Seamless observability pipeline from code&#8209;level tracing to infrastructure metrics.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="monitor-panel">
+      <div class="mp-header">
+        <span class="mp-title">IBM Instana &mdash; API Health Dashboard</span>
+        <span class="mp-live">&#9679; LIVE</span>
+      </div>
+      <div class="mp-metrics">
+        <div class="mp-metric">
+          <div class="mp-metric-label">API Uptime</div>
+          <div class="mp-metric-value">99.97%<span class="up">&#8593;</span></div>
+        </div>
+        <div class="mp-metric">
+          <div class="mp-metric-label">Avg Latency</div>
+          <div class="mp-metric-value">18ms<span class="up">&#8595;</span></div>
+        </div>
+        <div class="mp-metric">
+          <div class="mp-metric-label">Req / sec</div>
+          <div class="mp-metric-value">14.2k</div>
+        </div>
+        <div class="mp-metric">
+          <div class="mp-metric-label">Error Rate</div>
+          <div class="mp-metric-value">0.03%<span class="warn">&#9888;</span></div>
+        </div>
+      </div>
+      <div class="mp-bar-section-label">API Endpoint Performance</div>
+      <div class="mp-bars">
+        <div class="bar-row">
+          <span class="bar-label">Auth Service</span>
+          <div class="bar-track"><div class="bar-fill" style="width:94%"></div></div>
+          <span class="bar-pct">94%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Payment API</span>
+          <div class="bar-track"><div class="bar-fill orange" style="width:87%"></div></div>
+          <span class="bar-pct">87%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Data Pipeline</span>
+          <div class="bar-track"><div class="bar-fill" style="width:98%"></div></div>
+          <span class="bar-pct">98%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Notification</span>
+          <div class="bar-track"><div class="bar-fill orange" style="width:79%"></div></div>
+          <span class="bar-pct">79%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="center">
+      <span class="section-tag">Case Studies</span>
+      <h2 class="section-title">Trusted by Industry Leaders</h2>
+      <p class="section-sub">Success stories from organizations that have transformed their API management with QNX AI solutions and IBM Instana.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testi-quote">"QNX AI reduced our API integration time by over 60%. The IBM Instana integration gave us visibility we never had before — we can now catch issues before our customers even notice them."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">MR</div>
+          <div>
+            <div class="testi-name">Michael Rivera</div>
+            <div class="testi-role">CTO, NexaFintech</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testi-quote">"The self&#8209;healing orchestration alone saved us hundreds of engineering hours. Downtime dropped 40% within the first quarter of deployment. QNX is genuinely transformative."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">SL</div>
+          <div>
+            <div class="testi-name">Sarah Lin</div>
+            <div class="testi-role">VP Engineering, CloudBridge Corp</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testi-quote">"Moving from manual API management to QNX AI was night and day. The real&#8209;time Instana dashboards and proactive alerts have completely changed how our team operates."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">JK</div>
+          <div>
+            <div class="testi-name">James Kowalski</div>
+            <div class="testi-role">Director of Platform, RetailEdge</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REGISTRATION -->
+<section class="register" id="register">
+  <div class="register-inner">
+    <div class="center">
+      <span class="section-tag">Get Involved</span>
+      <h2 class="section-title">Register for Exclusive Insights</h2>
+      <p class="section-sub" style="margin:0 auto;">
+        Don't miss out on exclusive insights. Connect with our AI experts and learn how QNX can transform your API management.
+      </p>
+    </div>
+    <div class="form-card">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fname">First Name</label>
+          <input type="text" id="fname" placeholder="John" />
+        </div>
+        <div class="form-group">
+          <label for="lname">Last Name</label>
+          <input type="text" id="lname" placeholder="Doe" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Business Email</label>
+        <input type="email" id="email" placeholder="john.doe@company.com" />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="company">Company</label>
+          <input type="text" id="company" placeholder="Your Company" />
+        </div>
+        <div class="form-group">
+          <label for="title">Job Title</label>
+          <input type="text" id="title" placeholder="e.g. CTO, Developer" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="interest">Area of Interest</label>
+        <select id="interest">
+          <option value="" disabled selected>Select your primary interest</option>
+          <option>API Automation &amp; Integration</option>
+          <option>IBM Instana Observability</option>
+          <option>Self-Healing Orchestration</option>
+          <option>AI-Driven API Management</option>
+          <option>General Inquiry</option>
+        </select>
+      </div>
+      <div class="form-divider"></div>
+      <div class="form-check">
+        <input type="checkbox" id="resource" />
+        <label for="resource">Send me the QNX AI whitepaper and exclusive resources</label>
+      </div>
+      <div class="form-check">
+        <input type="checkbox" id="agree" />
+        <label for="agree">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+      </div>
+      <button class="form-submit" type="submit">
+        &#9654;&#xFE0E; &nbsp;Register &amp; Get Free Resources
+      </button>
+      <p class="form-note">&#128274; &nbsp;Your data is secure. We never share your information with third parties.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <h2>Ready to Transform Your API Management?</h2>
+  <p>Download our resources or get in touch with our AI experts today.</p>
+  <div class="cta-actions">
+    <a href="#" class="btn-download">
+      &#8659; Download Whitepaper
+    </a>
+    <a href="mailto:experts@qnx.ai" class="btn-email">
+      &#9993; Contact an Expert
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Q<span>N</span>X &nbsp;<span style="font-size:.8rem;font-weight:400;color:var(--gray-400);">AI&#8209;Infused Automation</span></div>
+  <ul class="footer-links">
+    <li><a href="#">Privacy Policy</a></li>
+    <li><a href="#">Terms of Service</a></li>
+    <li><a href="#">Support</a></li>
+    <li><a href="#">IBM Instana</a></li>
+  </ul>
+  <p>&copy; 2025 QNX AI Solutions. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

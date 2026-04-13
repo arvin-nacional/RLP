@@ -1,0 +1,174 @@
+<!-- =============================================
+     SECTION: Registration Form
+     ============================================= -->
+<style>
+  :root {
+    --blue-accent: #1e6fd9;
+    --orange:      #f97316;
+    --white:       #ffffff;
+    --text-dark:   #0f172a;
+    --text-mid:    #334155;
+    --text-muted:  #64748b;
+    --border:      #e2e8f0;
+    --blue-pale:   #eff6ff;
+    --section-alt: #f8fafc;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--white); color: var(--text-dark); line-height: 1.6;
+  }
+
+  .register {
+    background: linear-gradient(160deg, var(--blue-pale) 0%, #e0eeff 50%, #fdf4ee 100%);
+    padding: 96px 6%; position: relative; overflow: hidden;
+  }
+  .register::before {
+    content: ''; position: absolute; top: -100px; right: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(249,115,22,.07), transparent 70%);
+    border-radius: 50%;
+  }
+  .register::after {
+    content: ''; position: absolute; bottom: -80px; left: -80px;
+    width: 350px; height: 350px;
+    background: radial-gradient(circle, rgba(30,111,217,.07), transparent 70%);
+    border-radius: 50%;
+  }
+
+  .register-inner { max-width: 760px; margin: 0 auto; position: relative; z-index: 1; }
+
+  .center { text-align: center; }
+  .center .section-sub { margin: 0 auto; }
+
+  .section-tag {
+    display: inline-block; font-size: .78rem; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--orange); margin-bottom: .8rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.7rem, 3.5vw, 2.6rem); font-weight: 800;
+    color: var(--text-dark); letter-spacing: -.5px; line-height: 1.2; margin-bottom: 1rem;
+  }
+
+  .section-sub { font-size: 1.02rem; color: var(--text-mid); max-width: 560px; }
+
+  .form-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 24px; padding: 3rem 3.5rem; margin-top: 2.5rem;
+    box-shadow: 0 8px 40px rgba(0,0,0,.08);
+  }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+
+  .form-group { display: flex; flex-direction: column; gap: .4rem; margin-bottom: 1.2rem; }
+  .form-group label {
+    font-size: .82rem; font-weight: 600; color: var(--text-mid); letter-spacing: .03em;
+  }
+
+  .form-group input,
+  .form-group select {
+    background: var(--section-alt); border: 1px solid var(--border);
+    border-radius: 8px; padding: .72rem 1rem; color: var(--text-dark);
+    font-size: .92rem; font-family: inherit; outline: none;
+    transition: border-color .2s, background .2s;
+  }
+  .form-group input::placeholder { color: var(--text-muted); }
+  .form-group select option { background: var(--white); color: var(--text-dark); }
+  .form-group input:focus,
+  .form-group select:focus { border-color: var(--blue-accent); background: var(--blue-pale); }
+
+  .form-divider { height: 1px; background: var(--border); margin: 1.4rem 0; }
+
+  .form-check { display: flex; align-items: flex-start; gap: .7rem; margin-bottom: 1.4rem; }
+  .form-check input[type="checkbox"] {
+    width: 16px; height: 16px; min-width: 16px; margin-top: 2px; accent-color: var(--orange);
+  }
+  .form-check label { font-size: .82rem; color: var(--text-muted); }
+  .form-check a { color: var(--blue-accent); text-decoration: none; }
+  .form-check a:hover { color: var(--orange); }
+
+  .form-submit {
+    width: 100%; background: linear-gradient(135deg, var(--orange), #c45a0a);
+    color: var(--white); border: none; border-radius: 10px; padding: 1rem;
+    font-size: 1rem; font-weight: 700; cursor: pointer; letter-spacing: .02em;
+    box-shadow: 0 4px 18px rgba(249,115,22,.35);
+    transition: transform .18s, box-shadow .18s;
+  }
+  .form-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(249,115,22,.45); }
+
+  .form-note { text-align: center; font-size: .78rem; color: var(--text-muted); margin-top: 1rem; }
+
+  @media (max-width: 900px) {
+    .form-row { grid-template-columns: 1fr; }
+    .form-card { padding: 2rem; }
+  }
+  @media (max-width: 600px) {
+    .form-card { padding: 1.5rem; }
+  }
+</style>
+
+<section class="register" id="register">
+  <div class="register-inner">
+    <div class="center">
+      <span class="section-tag">Get Involved</span>
+      <h2 class="section-title">Register for Exclusive Insights</h2>
+      <p class="section-sub">
+        Don't miss out on exclusive insights. Connect with our AI experts and learn how QNX can transform your API management.
+      </p>
+    </div>
+    <div class="form-card">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fname">First Name</label>
+          <input type="text" id="fname" placeholder="John" />
+        </div>
+        <div class="form-group">
+          <label for="lname">Last Name</label>
+          <input type="text" id="lname" placeholder="Doe" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Business Email</label>
+        <input type="email" id="email" placeholder="john.doe@company.com" />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="company">Company</label>
+          <input type="text" id="company" placeholder="Your Company" />
+        </div>
+        <div class="form-group">
+          <label for="title">Job Title</label>
+          <input type="text" id="title" placeholder="e.g. CTO, Developer" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="interest">Area of Interest</label>
+        <select id="interest">
+          <option value="" disabled selected>Select your primary interest</option>
+          <option>API Automation &amp; Integration</option>
+          <option>IBM Instana Observability</option>
+          <option>Self-Healing Orchestration</option>
+          <option>AI-Driven API Management</option>
+          <option>General Inquiry</option>
+        </select>
+      </div>
+      <div class="form-divider"></div>
+      <div class="form-check">
+        <input type="checkbox" id="resource" />
+        <label for="resource">Send me the QNX AI whitepaper and exclusive resources</label>
+      </div>
+      <div class="form-check">
+        <input type="checkbox" id="agree" />
+        <label for="agree">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+      </div>
+      <button class="form-submit" type="submit">
+        &#9654;&#xFE0E; &nbsp;Register &amp; Get Free Resources
+      </button>
+      <p class="form-note">&#128274; &nbsp;Your data is secure. We never share your information with third parties.</p>
+    </div>
+  </div>
+</section>

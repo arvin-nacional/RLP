@@ -1,0 +1,68 @@
+<!-- =============================================
+     SECTION: Navigation Bar
+     ============================================= -->
+<style>
+  :root {
+    --blue-accent: #1e6fd9;
+    --blue-dark:   #0d2145;
+    --orange:      #f97316;
+    --orange-light:#fb923c;
+    --white:       #ffffff;
+    --text-mid:    #334155;
+    --border:      #e2e8f0;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 6%; height: 68px;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 1px 8px rgba(0,0,0,.06);
+  }
+
+  .nav-logo {
+    font-size: 1.5rem; font-weight: 800;
+    color: var(--blue-dark); letter-spacing: -0.5px;
+  }
+  .nav-logo span { color: var(--orange); }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--text-mid); text-decoration: none;
+    font-size: .9rem; font-weight: 500; transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--orange); }
+
+  .nav-cta {
+    background: var(--orange) !important;
+    color: var(--white) !important;
+    padding: .4rem 1.1rem;
+    border-radius: 6px;
+    font-weight: 600 !important;
+    transition: background .2s !important;
+  }
+  .nav-cta:hover { background: var(--orange-light) !important; }
+
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+  }
+</style>
+
+<nav>
+  <div class="nav-logo">Q<span>N</span>X</div>
+  <ul class="nav-links">
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#benefits">Benefits</a></li>
+    <li><a href="#why">Why QNX</a></li>
+    <li><a href="#testimonials">Case Studies</a></li>
+    <li><a href="#register" class="nav-cta">Register Now</a></li>
+  </ul>
+</nav>
