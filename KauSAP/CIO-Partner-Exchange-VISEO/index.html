@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KauSAP CIO Partner Exchange with VISEO | April 28, 2026</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:        #160a3e;
+      --navy-mid:    #251260;
+      --navy-light:  #3730a3;
+      --blue-accent: #06b6d4;
+      --blue-pale:   #ecfeff;
+      --blue-soft:   #cffafe;
+      --blue-light:  #22d3ee;
+      --cyan:        #06b6d4;
+      --cyan-light:  #22d3ee;
+      --gold:        #e8a020;
+      --gold-light:  #f59e0b;
+      --gold-pale:   #fffbea;
+      --gold-soft:   #fef3c7;
+      --white:       #ffffff;
+      --text-dark:   #0f172a;
+      --text-mid:    #334155;
+      --text-muted:  #64748b;
+      --border:      #e2e8f0;
+      --card-bg:     #ffffff;
+      --section-alt: #f8fafc;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--white);
+      color: var(--text-dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 6%; height: 68px;
+      background: rgba(22,10,62,0.96);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(99,102,241,.25);
+      box-shadow: 0 1px 12px rgba(0,0,0,.25);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: .6rem;
+      font-size: 1.1rem; font-weight: 800; color: var(--white); letter-spacing: .03em;
+    }
+    .nav-logo .logo-x { color: var(--gold); }
+    .nav-logo .logo-divider { color: rgba(255,255,255,.25); font-weight: 300; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,.75); text-decoration: none; font-size: .88rem; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      background: var(--gold) !important; color: var(--navy) !important;
+      padding: .4rem 1.2rem; border-radius: 6px; font-weight: 700 !important;
+      transition: background .2s !important;
+    }
+    .nav-cta:hover { background: var(--gold-light) !important; color: var(--navy) !important; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 120px 6% 80px; position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg, var(--navy) 0%, var(--navy-mid) 55%, #2d1b7a 100%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(99,102,241,.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99,102,241,.07) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 80%);
+    }
+    .hero-glow {
+      position: absolute; top: -80px; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 400px;
+      background: radial-gradient(ellipse, rgba(99,102,241,.2) 0%, transparent 70%);
+    }
+    .hero-content { position: relative; max-width: 880px; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(6,182,212,.12); border: 1px solid rgba(6,182,212,.4);
+      color: var(--cyan-light); font-size: .78rem; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      padding: .4rem 1.1rem; border-radius: 100px; margin-bottom: 1.8rem;
+    }
+    .badge-dot {
+      width: 7px; height: 7px; background: var(--cyan); border-radius: 50%;
+      animation: pulse 1.8s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50%      { opacity:.5; transform:scale(1.4); }
+    }
+
+    .hero-eyebrow {
+      font-size: .82rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: .6rem;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 900;
+      line-height: 1.1; letter-spacing: -1px; color: var(--white); margin-bottom: .5rem;
+    }
+    h1 .with-viseo {
+      display: block; font-size: clamp(1.3rem, 2.8vw, 2rem); font-weight: 400;
+      color: rgba(255,255,255,.6); letter-spacing: .04em; margin-top: .4rem;
+    }
+    h1 .with-viseo strong { color: var(--gold); font-weight: 700; }
+
+    .hero-tagline {
+      font-size: clamp(1.05rem, 2vw, 1.3rem); color: rgba(255,255,255,.55);
+      font-style: italic; margin: 1.2rem auto 2rem; max-width: 540px;
+    }
+
+    .hero-meta {
+      display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;
+      margin-bottom: 2.8rem;
+    }
+    .meta-item {
+      display: flex; align-items: center; gap: .5rem;
+      color: rgba(255,255,255,.8); font-size: .92rem; font-weight: 500;
+    }
+    .meta-icon { font-size: 1rem; }
+    .meta-item strong { color: var(--gold-light); }
+
+    .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), #b07810);
+      color: var(--navy); padding: .85rem 2.2rem; border-radius: 8px;
+      font-size: 1rem; font-weight: 800; text-decoration: none; border: none; cursor: pointer;
+      box-shadow: 0 4px 24px rgba(232,160,32,.4);
+      transition: transform .18s, box-shadow .18s;
+      display: inline-flex; align-items: center; gap: .5rem;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(232,160,32,.55); }
+
+    .btn-secondary {
+      background: transparent; color: rgba(255,255,255,.85);
+      padding: .85rem 2.2rem; border-radius: 8px; font-size: 1rem; font-weight: 600;
+      text-decoration: none; border: 1.5px solid rgba(255,255,255,.3); cursor: pointer;
+      transition: border-color .18s, background .18s, color .18s;
+      display: inline-flex; align-items: center; gap: .5rem;
+    }
+    .btn-secondary:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(6,182,212,.06); }
+
+    .hero-seats {
+      margin-top: 2.4rem; font-size: .82rem; color: rgba(255,255,255,.4);
+      display: flex; align-items: center; justify-content: center; gap: .5rem;
+    }
+    .seats-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; display: inline-block; }
+
+    /* SHARED SECTION */
+    section { padding: 96px 6%; }
+    .section-tag {
+      display: inline-block; font-size: .78rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin-bottom: .8rem;
+    }
+    .section-title {
+      font-size: clamp(1.7rem, 3.5vw, 2.6rem); font-weight: 800;
+      color: var(--text-dark); letter-spacing: -.5px; line-height: 1.2; margin-bottom: 1rem;
+    }
+    .section-sub { font-size: 1.02rem; color: var(--text-mid); max-width: 560px; }
+    .center { text-align: center; }
+    .center .section-sub { margin: 0 auto; }
+
+    /* ABOUT — "Beyond Presentations" */
+    .about { background: var(--section-alt); }
+    .about-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4.5rem;
+      align-items: center; max-width: 1200px; margin: 0 auto;
+    }
+    .about-quote-card {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%); border-radius: 20px; padding: 2.8rem 2.6rem;
+      position: relative; overflow: hidden;
+      box-shadow: 0 8px 40px rgba(22,10,62,.35);
+    }
+    .about-quote-card::before {
+      content: '\201C';
+      position: absolute; top: -10px; left: 20px;
+      font-size: 10rem; line-height: 1; color: rgba(232,160,32,.12);
+      font-family: Georgia, serif; font-weight: 900; pointer-events: none;
+    }
+    .about-quote-card::after {
+      content: ''; position: absolute; bottom: -60px; right: -60px;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(232,160,32,.12), transparent 70%);
+      border-radius: 50%;
+    }
+    .aqc-label {
+      font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.2rem; position: relative; z-index: 1;
+    }
+    .aqc-headline {
+      font-size: 1.6rem; font-weight: 800; color: var(--white); line-height: 1.25;
+      margin-bottom: 1rem; position: relative; z-index: 1;
+    }
+    .aqc-body {
+      font-size: .9rem; color: rgba(255,255,255,.65); line-height: 1.75;
+      margin-bottom: 1.4rem; position: relative; z-index: 1;
+    }
+    .aqc-topics { display: flex; flex-direction: column; gap: .7rem; position: relative; z-index: 1; }
+    .aqc-topic {
+      display: flex; align-items: flex-start; gap: .75rem;
+    }
+    .aqc-dot {
+      width: 20px; height: 20px; min-width: 20px; border-radius: 50%;
+      background: rgba(232,160,32,.2); border: 1px solid rgba(232,160,32,.4);
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 2px;
+    }
+    .aqc-dot::after { content: ''; width: 6px; height: 6px; background: var(--gold); border-radius: 50%; }
+    .aqc-topic span { font-size: .88rem; color: rgba(255,255,255,.75); }
+
+    .feature-list { display: flex; flex-direction: column; gap: 1.4rem; margin-top: 2rem; }
+    .feature-item { display: flex; gap: 1rem; align-items: flex-start; }
+    .feature-icon {
+      width: 42px; height: 42px; min-width: 42px; border-radius: 10px;
+      background: var(--gold-pale); border: 1px solid rgba(232,160,32,.3);
+      display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+    }
+    .feature-text h4 { font-size: 1rem; font-weight: 700; color: var(--text-dark); margin-bottom: .2rem; }
+    .feature-text p { font-size: .88rem; color: var(--text-muted); }
+
+    /* WHY VISEO */
+    .why-viseo { background: var(--white); }
+    .viseo-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4.5rem;
+      align-items: center; max-width: 1200px; margin: 0 auto;
+    }
+    .viseo-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .viseo-card {
+      background: var(--section-alt); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.6rem 1.4rem;
+      transition: transform .2s, box-shadow .2s, border-color .2s;
+    }
+    .viseo-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,.08); border-color: rgba(232,160,32,.4); }
+    .viseo-card-icon { font-size: 1.6rem; margin-bottom: .8rem; }
+    .viseo-card h4 { font-size: .95rem; font-weight: 700; color: var(--text-dark); margin-bottom: .4rem; }
+    .viseo-card p { font-size: .82rem; color: var(--text-muted); line-height: 1.65; }
+
+    /* WHAT MAKES DIFFERENT */
+    .different { background: var(--navy); position: relative; overflow: hidden; }
+    .different::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(99,102,241,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99,102,241,.05) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+    .different-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+    .different .section-tag { color: var(--gold); }
+    .different .section-title { color: var(--white); }
+    .diff-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 3rem;
+    }
+    .diff-card {
+      background: rgba(255,255,255,.04); border: 1px solid rgba(99,102,241,.2);
+      border-radius: 16px; padding: 2rem 1.8rem;
+      transition: background .2s, border-color .2s;
+    }
+    .diff-card:hover { background: rgba(232,160,32,.07); border-color: rgba(232,160,32,.4); }
+    .diff-num {
+      font-size: 2.4rem; font-weight: 900; color: rgba(165,180,252,.3);
+      line-height: 1; margin-bottom: .8rem; font-family: Georgia, serif;
+    }
+    .diff-card h4 { font-size: 1.05rem; font-weight: 700; color: var(--white); margin-bottom: .5rem; }
+    .diff-card p { font-size: .88rem; color: rgba(255,255,255,.55); line-height: 1.7; }
+
+    /* AGENDA */
+    .agenda { background: var(--section-alt); }
+    .agenda-inner { max-width: 860px; margin: 0 auto; }
+    .agenda-placeholder {
+      margin-top: 3rem; border: 2px dashed var(--border);
+      border-radius: 20px; padding: 3rem 2rem; text-align: center;
+      background: var(--white);
+    }
+    .agenda-ph-icon { font-size: 3rem; margin-bottom: 1rem; opacity: .5; }
+    .agenda-ph-title { font-size: 1.2rem; font-weight: 700; color: var(--text-mid); margin-bottom: .5rem; }
+    .agenda-ph-sub { font-size: .9rem; color: var(--text-muted); }
+
+    .agenda-timeline { display: flex; flex-direction: column; gap: 0; margin-top: 3rem; }
+    .agenda-slot {
+      display: grid; grid-template-columns: 120px 1fr; gap: 0;
+      position: relative;
+    }
+    .agenda-slot:not(:last-child) .slot-line { border-left: 2px solid var(--border); }
+    .slot-time-col { padding: 0 1.5rem 0 0; text-align: right; padding-top: 1.2rem; }
+    .slot-time {
+      font-size: .82rem; font-weight: 700; color: var(--gold);
+      letter-spacing: .04em; white-space: nowrap;
+    }
+    .slot-body-col { padding-left: 1.5rem; padding-bottom: 2rem; border-left: 2px solid var(--border); position: relative; }
+    .slot-dot {
+      position: absolute; left: -7px; top: 1.35rem;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--gold); border: 2px solid var(--section-alt);
+    }
+    .slot-dot.placeholder { background: var(--border); }
+    .slot-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.2rem 1.4rem; margin-top: .8rem;
+    }
+    .slot-card.ph { background: var(--section-alt); border-style: dashed; }
+    .slot-card h4 { font-size: .95rem; font-weight: 700; color: var(--text-dark); margin-bottom: .3rem; }
+    .slot-card p { font-size: .83rem; color: var(--text-muted); }
+    .slot-ph-label {
+      display: inline-block; font-size: .72rem; font-weight: 600;
+      background: var(--gold-pale); color: var(--gold); border: 1px solid rgba(232,160,32,.3);
+      border-radius: 100px; padding: .15rem .7rem; margin-bottom: .5rem;
+      letter-spacing: .06em; text-transform: uppercase;
+    }
+
+    /* REGISTER */
+    .register {
+      background: linear-gradient(160deg, #f0ebff 0%, #e8e0ff 50%, #fffbea 100%);
+      position: relative; overflow: hidden;
+    }
+    .register::before {
+      content: ''; position: absolute; top: -100px; right: -100px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(232,160,32,.1), transparent 70%);
+      border-radius: 50%;
+    }
+    .register::after {
+      content: ''; position: absolute; bottom: -80px; left: -80px;
+      width: 350px; height: 350px;
+      background: radial-gradient(circle, rgba(99,102,241,.08), transparent 70%);
+      border-radius: 50%;
+    }
+    .register-inner { max-width: 760px; margin: 0 auto; position: relative; z-index: 1; }
+
+    .form-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 24px; padding: 3rem 3.5rem; margin-top: 2.5rem;
+      box-shadow: 0 8px 40px rgba(0,0,0,.08);
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .form-group { display: flex; flex-direction: column; gap: .4rem; margin-bottom: 1.2rem; }
+    .form-group label { font-size: .82rem; font-weight: 600; color: var(--text-mid); letter-spacing: .03em; }
+    .form-group input,
+    .form-group select {
+      background: var(--section-alt); border: 1px solid var(--border);
+      border-radius: 8px; padding: .72rem 1rem; color: var(--text-dark);
+      font-size: .92rem; font-family: inherit; outline: none;
+      transition: border-color .2s, background .2s;
+    }
+    .form-group input::placeholder { color: var(--text-muted); }
+    .form-group select option { background: var(--white); color: var(--text-dark); }
+    .form-group input:focus,
+    .form-group select:focus { border-color: var(--gold); background: var(--gold-pale); }
+    .form-divider { height: 1px; background: var(--border); margin: 1.4rem 0; }
+    .form-check { display: flex; align-items: flex-start; gap: .7rem; margin-bottom: 1.4rem; }
+    .form-check input[type="checkbox"] { width: 16px; height: 16px; min-width: 16px; margin-top: 2px; accent-color: var(--gold); }
+    .form-check label { font-size: .82rem; color: var(--text-muted); }
+    .form-check a { color: var(--blue-accent); text-decoration: none; }
+    .form-check a:hover { color: var(--gold); }
+    .form-submit {
+      width: 100%; background: linear-gradient(135deg, var(--gold), #b07810);
+      color: var(--navy); border: none; border-radius: 10px; padding: 1rem;
+      font-size: 1rem; font-weight: 800; cursor: pointer; letter-spacing: .04em;
+      box-shadow: 0 4px 18px rgba(232,160,32,.35);
+      transition: transform .18s, box-shadow .18s;
+    }
+    .form-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(232,160,32,.5); }
+    .form-note { text-align: center; font-size: .78rem; color: var(--text-muted); margin-top: 1rem; }
+
+    /* FOOTER */
+    footer {
+      background: var(--navy); padding: 2.5rem 6%; text-align: center;
+      border-top: 1px solid rgba(232,160,32,.2);
+    }
+    .footer-logos {
+      display: flex; align-items: center; justify-content: center; gap: 1.2rem;
+      margin-bottom: .8rem;
+    }
+    .footer-brand {
+      font-size: 1.1rem; font-weight: 800; color: var(--white);
+    }
+    .footer-brand .gold { color: var(--gold); }
+    .footer-sep { color: rgba(255,255,255,.2); font-size: 1.2rem; }
+    footer p { font-size: .8rem; color: rgba(255,255,255,.35); margin-top: .4rem; }
+    footer .footer-links {
+      display: flex; gap: 1.8rem; justify-content: center; margin: .8rem 0; list-style: none;
+    }
+    footer .footer-links a { color: rgba(255,255,255,.35); text-decoration: none; font-size: .8rem; }
+    footer .footer-links a:hover { color: var(--gold); }
+
+    /* RESPONSIVE */
+    @media (max-width: 960px) {
+      .about-inner, .viseo-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .diff-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px) {
+      .viseo-cards { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-card { padding: 2rem 1.5rem; }
+      .agenda-slot { grid-template-columns: 90px 1fr; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .hero-meta { gap: 1rem; flex-direction: column; }
+      .diff-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    Kau<span class="logo-x">SAP</span>
+    <span class="logo-divider">&nbsp;/&nbsp;</span>
+    VISEO
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#viseo">Why VISEO</a></li>
+    <li><a href="#different">What's Different</a></li>
+    <li><a href="#agenda">Agenda</a></li>
+    <li><a href="#register" class="nav-cta">Secure Your Seat</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      By Invitation &mdash; Exclusive Executive Event
+    </div>
+    <div class="hero-eyebrow">KauSAP CIO Partner Exchange</div>
+    <h1>
+      Where C-Level Conversations<br>Actually Happen
+      <span class="with-viseo">in partnership with <strong>VISEO</strong></span>
+    </h1>
+    <p class="hero-tagline">Maximizing SAP Investment Across the Business Ecosystem</p>
+    <div class="hero-meta">
+      <div class="meta-item">
+        <span class="meta-icon">&#128197;</span>
+        <span><strong>April 28, 2026</strong></span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-icon">&#128336;</span>
+        <span><strong>10:00 AM &ndash; 2:00 PM</strong></span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-icon">&#128205;</span>
+        <span><strong>Merino 2, Seda Hotel BGC</strong></span>
+      </div>
+    </div>
+    <div class="hero-actions">
+      <a href="#register" class="btn-primary">&#9654;&#xFE0E;&nbsp; Secure Your Seat</a>
+      <a href="#about" class="btn-secondary">Learn More &rsaquo;</a>
+    </div>
+    <p class="hero-seats">
+      <span class="seats-dot"></span>
+      Limited seats &mdash; C-level and senior leadership only
+    </p>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-quote-card">
+      <div class="aqc-label">About This Exchange</div>
+      <h3 class="aqc-headline">Beyond Presentations.<br>Into C-Level Dialogue.</h3>
+      <p class="aqc-body">
+        This is not a briefing. This is a closed-room, C-level exchange &mdash;
+        a space where CIOs and senior leaders speak candidly about what actually matters.
+      </p>
+      <div class="aqc-topics">
+        <div class="aqc-topic">
+          <span class="aqc-dot"></span>
+          <span>What&rsquo;s working &mdash; and what&rsquo;s not</span>
+        </div>
+        <div class="aqc-topic">
+          <span class="aqc-dot"></span>
+          <span>Where SAP is delivering value &mdash; and where it&rsquo;s falling short</span>
+        </div>
+        <div class="aqc-topic">
+          <span class="aqc-dot"></span>
+          <span>How AI, data, integration, and security are reshaping priorities</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <span class="section-tag">The Format</span>
+      <h2 class="section-title">A Room Built for Real Conversations</h2>
+      <p class="section-sub">
+        Designed for senior technology and business leaders, this closed-door session
+        removes the formality of traditional conferences and replaces it with honest,
+        peer-driven dialogue.
+      </p>
+      <div class="feature-list">
+        <div class="feature-item">
+          <div class="feature-icon">&#129309;</div>
+          <div class="feature-text">
+            <h4>Peer-to-Peer Format</h4>
+            <p>CIOs and senior leaders from across industries in one room, sharing unfiltered perspectives.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">&#128683;</div>
+          <div class="feature-text">
+            <h4>No Selling. No Slide Overload.</h4>
+            <p>Just real conversations. The agenda is shaped around your challenges, not a vendor pitch.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">&#128202;</div>
+          <div class="feature-text">
+            <h4>Benchmarked Across Industries</h4>
+            <p>Compare SAP strategies with peers, surface shared patterns, and identify where to move next.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY VISEO -->
+<section class="why-viseo" id="viseo">
+  <div class="viseo-inner">
+    <div>
+      <span class="section-tag">Why VISEO</span>
+      <h2 class="section-title">Global SAP Expertise,<br>Local Strategic Impact</h2>
+      <p class="section-sub">
+        VISEO works with leadership teams to turn SAP into a strategic growth platform &mdash;
+        not just an operational system. Their global experience translates into clear,
+        boardroom-ready strategies.
+      </p>
+      <div class="feature-list" style="margin-top: 1.6rem;">
+        <div class="feature-item">
+          <div class="feature-icon">&#127775;</div>
+          <div class="feature-text">
+            <h4>End-to-End SAP Partnership</h4>
+            <p>From strategy through implementation, VISEO guides SAP investments to measurable business outcomes.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">&#127758;</div>
+          <div class="feature-text">
+            <h4>Proven at Scale, Globally</h4>
+            <p>Delivered across 25+ countries with deep experience in multi-entity, multi-cloud SAP landscapes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="viseo-cards">
+      <div class="viseo-card">
+        <div class="viseo-card-icon">&#129504;</div>
+        <h4>AI-Powered Transformation</h4>
+        <p>Embedding intelligence across SAP workflows to automate decisions and surface insight in real time.</p>
+      </div>
+      <div class="viseo-card">
+        <div class="viseo-card-icon">&#128279;</div>
+        <h4>Enterprise-Wide SAP Integration</h4>
+        <p>Connecting SAP to every corner of the business ecosystem &mdash; ERP, CRM, supply chain, and beyond.</p>
+      </div>
+      <div class="viseo-card">
+        <div class="viseo-card-icon">&#128200;</div>
+        <h4>Advanced Data &amp; Analytics</h4>
+        <p>Turning SAP data into a strategic asset with modern analytics, dashboards, and predictive models.</p>
+      </div>
+      <div class="viseo-card">
+        <div class="viseo-card-icon">&#128274;</div>
+        <h4>Secure Digital Architecture</h4>
+        <p>Designing at scale with security-first principles baked into every SAP integration layer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT MAKES THIS DIFFERENT -->
+<section class="different" id="different">
+  <div class="different-inner">
+    <div class="center">
+      <span class="section-tag">What Makes This Different</span>
+      <h2 class="section-title">Not Another Conference. An Exchange.</h2>
+    </div>
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="diff-num">01</div>
+        <h4>Peer-to-Peer Exchange at the C-Level</h4>
+        <p>Every voice in the room holds a seat at the leadership table. The conversation moves at the speed of executives who have already done the work.</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-num">02</div>
+        <h4>No Selling. No Slides Overload. Just Real Conversations.</h4>
+        <p>This is not a vendor forum. The format is designed to surface truth, not to push products. Facilitators guide, not present.</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-num">03</div>
+        <h4>Shared Challenges, Benchmarked Across Industries</h4>
+        <p>What you hear in the room reflects real patterns from real organizations &mdash; not curated case studies. Bring your actual problems.</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-num">04</div>
+        <h4>Actionable Insights You Can Bring Back to the Boardroom</h4>
+        <p>Leave with a clear view of where peers are investing, what&rsquo;s working, and what you can take to your leadership team the following week.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AGENDA -->
+<section class="agenda" id="agenda">
+  <div class="agenda-inner">
+    <div class="center">
+      <span class="section-tag">Session Flow</span>
+      <h2 class="section-title">April 28 &mdash; Full Day at a Glance</h2>
+      <p class="section-sub" style="margin: 0 auto;">
+        10:00 AM &ndash; 2:00 PM &nbsp;|&nbsp; Merino 2 Function Room, Seda Hotel BGC
+      </p>
+    </div>
+
+    <!-- AGENDA TIMELINE PLACEHOLDER -->
+    <div class="agenda-timeline">
+
+      <div class="agenda-slot">
+        <div class="slot-time-col">
+          <span class="slot-time">10:00 AM</span>
+        </div>
+        <div class="slot-body-col">
+          <span class="slot-dot"></span>
+          <div class="slot-card">
+            <h4>Registration &amp; Welcome Coffee</h4>
+            <p>Arrivals, networking, and introductions among executive peers.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="agenda-slot">
+        <div class="slot-time-col">
+          <span class="slot-time">10:30 AM</span>
+        </div>
+        <div class="slot-body-col">
+          <span class="slot-dot placeholder"></span>
+          <div class="slot-card ph">
+            <span class="slot-ph-label">Placeholder</span>
+            <h4>Opening Session &mdash; TBD</h4>
+            <p>Agenda details for this slot are coming soon.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="agenda-slot">
+        <div class="slot-time-col">
+          <span class="slot-time">11:15 AM</span>
+        </div>
+        <div class="slot-body-col">
+          <span class="slot-dot placeholder"></span>
+          <div class="slot-card ph">
+            <span class="slot-ph-label">Placeholder</span>
+            <h4>C-Level Exchange Session 1 &mdash; TBD</h4>
+            <p>Agenda details for this slot are coming soon.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="agenda-slot">
+        <div class="slot-time-col">
+          <span class="slot-time">12:15 PM</span>
+        </div>
+        <div class="slot-body-col">
+          <span class="slot-dot"></span>
+          <div class="slot-card">
+            <h4>Working Lunch &amp; Peer Networking</h4>
+            <p>Continued dialogue over a catered lunch at Merino 2 Function Room, Seda Hotel BGC.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="agenda-slot">
+        <div class="slot-time-col">
+          <span class="slot-time">1:00 PM</span>
+        </div>
+        <div class="slot-body-col">
+          <span class="slot-dot placeholder"></span>
+          <div class="slot-card ph">
+            <span class="slot-ph-label">Placeholder</span>
+            <h4>C-Level Exchange Session 2 &mdash; TBD</h4>
+            <p>Agenda details for this slot are coming soon.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="agenda-slot">
+        <div class="slot-time-col">
+          <span class="slot-time">1:45 PM</span>
+        </div>
+        <div class="slot-body-col">
+          <span class="slot-dot placeholder"></span>
+          <div class="slot-card ph">
+            <span class="slot-ph-label">Placeholder</span>
+            <h4>Closing &amp; Key Takeaways &mdash; TBD</h4>
+            <p>Agenda details for this slot are coming soon.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="agenda-slot">
+        <div class="slot-time-col">
+          <span class="slot-time">2:00 PM</span>
+        </div>
+        <div class="slot-body-col">
+          <span class="slot-dot"></span>
+          <div class="slot-card">
+            <h4>End of Event</h4>
+            <p>Thank you for joining. A summary of key insights will be shared with all attendees.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- END AGENDA TIMELINE PLACEHOLDER -->
+
+  </div>
+</section>
+
+<!-- REGISTRATION -->
+<section class="register" id="register">
+  <div class="register-inner">
+    <div class="center">
+      <span class="section-tag">Secure Your Seat</span>
+      <h2 class="section-title">Reserve Your Place at the Exchange</h2>
+      <p class="section-sub" style="margin: 0 auto;">
+        Seats are strictly limited to CIOs and senior leaders. Complete the form below and our team will confirm your registration.
+      </p>
+    </div>
+    <div class="form-card">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fname">First Name</label>
+          <input type="text" id="fname" placeholder="First name" />
+        </div>
+        <div class="form-group">
+          <label for="lname">Last Name</label>
+          <input type="text" id="lname" placeholder="Last name" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Business Email</label>
+        <input type="email" id="email" placeholder="you@company.com" />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="company">Company / Organization</label>
+          <input type="text" id="company" placeholder="Your organization" />
+        </div>
+        <div class="form-group">
+          <label for="jobtitle">Job Title</label>
+          <input type="text" id="jobtitle" placeholder="e.g. CIO, CTO, VP IT" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="mobile">Mobile Number <span style="color:var(--text-muted);font-weight:400;">(for confirmation)</span></label>
+        <input type="tel" id="mobile" placeholder="+63 9XX XXX XXXX" />
+      </div>
+      <div class="form-group">
+        <label for="industry">Industry</label>
+        <select id="industry">
+          <option value="" disabled selected>Select your industry</option>
+          <option>Banking &amp; Financial Services</option>
+          <option>Manufacturing</option>
+          <option>Retail &amp; Consumer Goods</option>
+          <option>Telecommunications</option>
+          <option>Healthcare &amp; Life Sciences</option>
+          <option>Energy &amp; Utilities</option>
+          <option>Public Sector / Government</option>
+          <option>Logistics &amp; Supply Chain</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-divider"></div>
+      <div class="form-check">
+        <input type="checkbox" id="agree" />
+        <label for="agree">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. I consent to being contacted by KauSAP and VISEO regarding this event.</label>
+      </div>
+      <button class="form-submit" type="submit">
+        &#9654;&#xFE0E;&nbsp; Secure My Seat at the Exchange
+      </button>
+      <p class="form-note">&#128274;&nbsp; Your data is secure and will only be used for event coordination.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logos">
+    <span class="footer-brand">Kau<span class="gold">SAP</span></span>
+    <span class="footer-sep">&times;</span>
+    <span class="footer-brand">VISEO</span>
+  </div>
+  <ul class="footer-links">
+    <li><a href="#">Privacy Policy</a></li>
+    <li><a href="#">Terms of Service</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <p>&copy; 2026 KauSAP &amp; VISEO. All rights reserved. &nbsp;|&nbsp; Merino 2 Function Room, Seda Hotel BGC &nbsp;|&nbsp; April 28, 2026</p>
+</footer>
+
+</body>
+</html>

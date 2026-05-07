@@ -1,0 +1,318 @@
+<!-- =============================================
+     SECTION: Enterprise Resources Unlock
+     ============================================= -->
+<style>
+  :root {
+    --blue-accent: #1e6fd9;
+    --blue-dark:   #0d2145;
+    --blue-mid:    #1a3a6e;
+    --blue-pale:   #eff6ff;
+    --blue-soft:   #dbeafe;
+    --orange:      #f97316;
+    --orange-pale: #fff7ed;
+    --white:       #ffffff;
+    --text-dark:   #0f172a;
+    --text-mid:    #334155;
+    --text-muted:  #64748b;
+    --border:      #e2e8f0;
+    --section-alt: #f8fafc;
+    --teal-pale:   #f0fdf9;
+    --purple-pale: #f5f3ff;
+    --teal:        #0d9488;
+    --purple:      #7c3aed;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--white); color: var(--text-dark); line-height: 1.6;
+  }
+
+  /* SECTION WRAPPER */
+  .resources {
+    background: var(--section-alt);
+    padding: 96px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .resources::before {
+    content: ''; position: absolute; top: -120px; right: -120px;
+    width: 480px; height: 480px;
+    background: radial-gradient(circle, rgba(30,111,217,.05), transparent 70%);
+    border-radius: 50%; pointer-events: none;
+  }
+  .resources::after {
+    content: ''; position: absolute; bottom: -100px; left: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(249,115,22,.05), transparent 70%);
+    border-radius: 50%; pointer-events: none;
+  }
+
+  .resources-inner { max-width: 1000px; margin: 0 auto; position: relative; z-index: 1; padding: 0 32px; }
+
+  /* HEADER */
+  .center { text-align: center; }
+  .section-tag {
+    display: inline-block; font-size: .78rem; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--orange); margin-bottom: .8rem;
+  }
+  .section-title {
+    font-size: clamp(1.7rem, 3.5vw, 2.6rem); font-weight: 800;
+    color: var(--text-dark); letter-spacing: -.5px; line-height: 1.2; margin-bottom: 1rem;
+  }
+  .section-intro {
+    font-size: 1.02rem; color: var(--text-mid);
+    max-width: 680px; margin: 0 auto 3.5rem; line-height: 1.75;
+  }
+
+  /* UNLOCK BANNER */
+  .unlock-banner {
+    display: flex; align-items: center; justify-content: center; gap: .7rem;
+    background: linear-gradient(135deg, var(--blue-dark), var(--blue-mid));
+    border-radius: 12px; padding: 1.1rem 2rem; margin-bottom: 3rem;
+    box-shadow: 0 4px 20px rgba(13,33,69,.18);
+  }
+  .unlock-icon { font-size: 1.3rem; }
+  .unlock-text {
+    font-size: .95rem; font-weight: 600; color: rgba(255,255,255,.9);
+  }
+  .unlock-text strong { color: var(--orange); }
+
+  /* RESOURCE GRID */
+  .resources-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.4rem;
+    margin-bottom: 3rem;
+  }
+
+  .resource-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 16px; padding: 2rem 1.8rem;
+    position: relative; overflow: hidden;
+    transition: transform .2s, box-shadow .2s, border-color .2s;
+    display: flex; flex-direction: column; gap: .7rem;
+  }
+  .resource-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    border-radius: 16px 16px 0 0;
+    opacity: 0; transition: opacity .2s;
+  }
+  .resource-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 36px rgba(0,0,0,.09);
+  }
+  .resource-card:hover::before { opacity: 1; }
+
+  /* Card color variants */
+  .rc-blue  { border-top-color: var(--blue-accent); }
+  .rc-blue::before  { background: linear-gradient(90deg, var(--blue-accent), #3b82f6); }
+  .rc-blue:hover   { border-color: rgba(30,111,217,.3); }
+
+  .rc-teal  { border-top-color: var(--teal); }
+  .rc-teal::before  { background: linear-gradient(90deg, var(--teal), #14b8a6); }
+  .rc-teal:hover   { border-color: rgba(13,148,136,.3); }
+
+  .rc-purple { border-top-color: var(--purple); }
+  .rc-purple::before { background: linear-gradient(90deg, var(--purple), #8b5cf6); }
+  .rc-purple:hover  { border-color: rgba(124,58,237,.3); }
+
+  .rc-orange { border-top-color: var(--orange); }
+  .rc-orange::before { background: linear-gradient(90deg, var(--orange), #fb923c); }
+  .rc-orange:hover  { border-color: rgba(249,115,22,.3); }
+
+  .rc-blue2  { border-top-color: #0284c7; }
+  .rc-blue2::before  { background: linear-gradient(90deg, #0284c7, #38bdf8); }
+  .rc-blue2:hover   { border-color: rgba(2,132,199,.3); }
+
+  /* Icon */
+  .rc-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; flex-shrink: 0;
+  }
+  .ic-blue   { background: var(--blue-pale); }
+  .ic-teal   { background: var(--teal-pale); }
+  .ic-purple { background: var(--purple-pale); }
+  .ic-orange { background: var(--orange-pale); }
+  .ic-sky    { background: #f0f9ff; }
+
+  /* Card label */
+  .rc-label {
+    font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  }
+  .lbl-blue   { color: var(--blue-accent); }
+  .lbl-teal   { color: var(--teal); }
+  .lbl-purple { color: var(--purple); }
+  .lbl-orange { color: var(--orange); }
+  .lbl-sky    { color: #0284c7; }
+
+  .resource-card h3 {
+    font-size: 1rem; font-weight: 700; color: var(--text-dark);
+    line-height: 1.35;
+  }
+  .resource-card p {
+    font-size: .875rem; color: var(--text-muted); line-height: 1.7;
+    flex: 1;
+  }
+
+  /* IBM / Questronix tags */
+  .rc-tags { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: .3rem; }
+  .rc-tag {
+    font-size: .7rem; font-weight: 600; padding: .2rem .65rem;
+    border-radius: 100px; letter-spacing: .04em;
+  }
+  .tag-ibm      { background: #eff6ff; color: var(--blue-accent); border: 1px solid #bfdbfe; }
+  .tag-qnx      { background: var(--orange-pale); color: var(--orange); border: 1px solid #fed7aa; }
+  .tag-watson   { background: var(--purple-pale); color: var(--purple); border: 1px solid #ddd6fe; }
+
+  /* 5th card: span across remaining space (3-col grid, row 2) */
+  .resource-card.rc-wide {
+    grid-column: 1 / -1;
+    flex-direction: row; align-items: flex-start; gap: 1.4rem;
+  }
+  .rc-wide .rc-icon { width: 52px; height: 52px; flex-shrink: 0; margin-top: .2rem; }
+  .rc-wide .rc-body { flex: 1; display: flex; flex-direction: column; gap: .5rem; }
+
+  /* CLOSING */
+  .resources-closing {
+    background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-mid) 100%);
+    border-radius: 20px; padding: 2.8rem 3rem;
+    display: flex; align-items: center; gap: 2.5rem;
+    position: relative; overflow: hidden;
+    box-shadow: 0 8px 32px rgba(13,33,69,.2);
+  }
+  .resources-closing::before {
+    content: ''; position: absolute; right: -60px; top: 50%; transform: translateY(-50%);
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, rgba(249,115,22,.1), transparent 70%);
+    border-radius: 50%;
+  }
+  .closing-icon { font-size: 3rem; flex-shrink: 0; position: relative; z-index: 1; }
+  .closing-body { position: relative; z-index: 1; }
+  .closing-body p {
+    font-size: 1.05rem; color: rgba(255,255,255,.82); line-height: 1.75;
+    max-width: 760px;
+  }
+  .closing-body p strong { color: var(--white); }
+  .closing-body p em { color: rgba(249,163,74,.9); font-style: normal; font-weight: 600; }
+
+  /* RESPONSIVE */
+  @media (max-width: 960px) {
+    .resources-grid { grid-template-columns: 1fr 1fr; }
+    .resource-card.rc-wide { grid-column: 1 / -1; flex-direction: row; }
+    .resources-closing { flex-direction: column; gap: 1.2rem; text-align: center; }
+  }
+  @media (max-width: 600px) {
+    .resources-grid { grid-template-columns: 1fr; }
+    .resource-card.rc-wide { flex-direction: column; }
+    .unlock-banner { flex-direction: column; gap: .4rem; text-align: center; }
+    .resources-closing { padding: 2rem 1.5rem; }
+  }
+</style>
+
+<section class="resources" id="resources">
+  <div class="resources-inner">
+
+    <!-- HEADER -->
+    <div class="center">
+      <span class="section-tag">Exclusive Resources</span>
+      <h2 class="section-title">Register to Unlock Your Enterprise Resource Kit</h2>
+      <p class="section-intro">
+        A curated set of enterprise resources from <strong>Questronix and IBM</strong> &mdash;
+        designed to help IT leaders, architects, and decision-makers implement smarter,
+        more secure, and cost-efficient operations.
+      </p>
+    </div>
+
+    <!-- UNLOCK BANNER -->
+    <div class="unlock-banner">
+      <span class="unlock-icon">&#128274;</span>
+      <span class="unlock-text">
+        <strong>Register once</strong> &mdash; gain instant access to all resources below
+      </span>
+    </div>
+
+    <!-- RESOURCE CARDS -->
+    <div class="resources-grid">
+
+      <!-- 1: API & Integration -->
+      <div class="resource-card rc-blue">
+        <div class="rc-icon ic-blue">&#128279;</div>
+        <span class="rc-label lbl-blue">API &amp; Integration</span>
+        <h3>API &amp; Integration Insights</h3>
+        <p>Learn how to connect systems seamlessly and scale your architecture with modern API strategies that reduce complexity and accelerate delivery.</p>
+        <div class="rc-tags">
+          <span class="rc-tag tag-ibm">IBM</span>
+          <span class="rc-tag tag-qnx">Questronix</span>
+        </div>
+      </div>
+
+      <!-- 2: AI Security & Governance -->
+      <div class="resource-card rc-teal">
+        <div class="rc-icon ic-teal">&#128737;</div>
+        <span class="rc-label lbl-teal">AI Security &amp; Governance</span>
+        <h3>AI Security &amp; Governance</h3>
+        <p>Explore how to protect sensitive data and enforce policies at scale using IBM Guardium and watsonx&mdash;without slowing innovation.</p>
+        <div class="rc-tags">
+          <span class="rc-tag tag-ibm">IBM Guardium</span>
+          <span class="rc-tag tag-watson">watsonx</span>
+        </div>
+      </div>
+
+      <!-- 3: Data & AI Platforms -->
+      <div class="resource-card rc-purple">
+        <div class="rc-icon ic-purple">&#129504;</div>
+        <span class="rc-label lbl-purple">Data &amp; AI Platforms</span>
+        <h3>Data &amp; AI Platforms</h3>
+        <p>Discover how watsonx.data enables faster analytics and a scalable data lakehouse approach&mdash;unifying your data assets across environments.</p>
+        <div class="rc-tags">
+          <span class="rc-tag tag-watson">watsonx.data</span>
+          <span class="rc-tag tag-ibm">IBM</span>
+        </div>
+      </div>
+
+      <!-- 4: Observability & Performance -->
+      <div class="resource-card rc-orange">
+        <div class="rc-icon ic-orange">&#128200;</div>
+        <span class="rc-label lbl-orange">Observability &amp; Monitoring</span>
+        <h3>Observability &amp; Performance Monitoring</h3>
+        <p>Improve uptime and system visibility with Instana&mdash;real-time insights into API health, latency, and application performance across your stack.</p>
+        <div class="rc-tags">
+          <span class="rc-tag tag-ibm">IBM Instana</span>
+          <span class="rc-tag tag-qnx">Questronix</span>
+        </div>
+      </div>
+
+      <!-- 5: Solution Briefs -->
+      <div class="resource-card rc-blue2">
+        <div class="rc-icon ic-sky">&#128203;</div>
+        <span class="rc-label lbl-sky">Solution Briefs &amp; Presentations</span>
+        <h3>Real-World Solution Briefs &amp; Presentations</h3>
+        <p>Practical guides and use cases you can apply immediately&mdash;from proof-of-concept frameworks to executive-ready presentations covering AI transformation, integration strategy, and cost optimization.</p>
+        <div class="rc-tags">
+          <span class="rc-tag tag-ibm">IBM</span>
+          <span class="rc-tag tag-qnx">Questronix</span>
+          <span class="rc-tag tag-watson">watsonx</span>
+        </div>
+      </div>
+
+    </div>
+    <!-- END RESOURCE GRID -->
+
+    <!-- CLOSING STATEMENT -->
+    <div class="resources-closing">
+      <span class="closing-icon">&#127919;</span>
+      <div class="closing-body">
+        <p>
+          Whether you&rsquo;re <strong>optimizing existing systems</strong> or planning your
+          <strong>AI transformation</strong>, these resources will give you the
+          <em>clarity and tools to move forward with confidence.</em>
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
